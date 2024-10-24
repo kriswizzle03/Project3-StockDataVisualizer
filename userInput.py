@@ -1,4 +1,6 @@
 from datetime import datetime
+from api_service import *
+import requests
 
 def get_stock_data_input():
     stock_symbol = input("Stock Data Visualizer Group 15 \n------------------------------------- \n\nEnter the stock symbol for the company you want data for: ").strip()
@@ -35,5 +37,17 @@ def get_stock_data_input():
 
     return stock_symbol, chart_type, time_series_function, begin_date, end_date
 
-stock_data = get_stock_data_input()
-print(stock_data)
+stock_symbol, chart_type, time_series_function, begin_date, end_date = get_stock_data_input()
+#convert time series and construct specific API url based on user's response
+time_series_name = convert_time_series(time_series_function)
+url = construct_url(BASE_URL, time_series_name, stock_symbol, INTERVAL, API_KEY)
+
+#get json data from API
+try:
+    response = requests.get(url)
+    stock_data = response.json()
+    #print(stock_data)
+except:
+    print("An exception occurred. Data could not be fetched from the API!")
+
+#prompt user to restart program/go through questions again
