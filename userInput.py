@@ -1,5 +1,6 @@
 from datetime import datetime
 from api_service import *
+from graph_generator import generate_graph
 import requests
 
 def get_stock_data_input():
@@ -47,6 +48,11 @@ try:
     response = requests.get(url)
     stock_data = response.json()
     #print(stock_data)
+
+    if 'Error Message' in stock_data:
+        print("Error fetching data: ", stock_data['Error Message'])
+    else:
+        generate_graph(stock_symbol, stock_data, chart_type, begin_date, end_date)
 except:
     print("An exception occurred. Data could not be fetched from the API!")
 
