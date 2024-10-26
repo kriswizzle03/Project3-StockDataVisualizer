@@ -55,7 +55,7 @@ try:
         response = requests.get(url)
         response.raise_for_status()  # Raises an HTTPError if the HTTP request in the case of an unsuccessful status code
         stock_data = response.json()
-        print(stock_data)
+        
 
         # Check if the expected data structure is present
         if not stock_data or "Error Message" in stock_data:

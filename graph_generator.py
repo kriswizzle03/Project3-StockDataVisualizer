@@ -22,12 +22,12 @@ def generate_graph(stock_symbol, stock_data, chart_type, begin_date, end_date):
     else:
         print("No valid time series found in the stock data.")
         return
-    print("******I got here NOW!!!!")
+    
     # Filter data by date range
     for date_str, data in time_series.items():
-        print("hey######")
+        
         #date = datetime.strptime(date_str, '%Y-%m-%d')
-        print("gotem")
+        
         #if begin_date <= date <= end_date:
         dates.append(date_str)
         #print(date_str)
@@ -36,7 +36,7 @@ def generate_graph(stock_symbol, stock_data, chart_type, begin_date, end_date):
                 print(prices)
         except KeyError:
                 print(f"Missing '1. open' data for date: {date_str}")
-    print("******I got here!!!!")
+    
     # Generate the graph
     if chart_type == "1":
         graph = pygal.Bar()
