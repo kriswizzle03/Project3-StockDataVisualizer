@@ -11,8 +11,8 @@ def generate_graph(stock_symbol, stock_data, chart_type, begin_date, end_date):
     prices = []
 
     # Determine the time series to use
-    if 'Time Series (1min)' in stock_data: 
-        time_series = stock_data['Time Series (1min)']
+    if 'Time Series (5min)' in stock_data: 
+        time_series = stock_data['Time Series (5min)']
     elif 'Time Series (Daily)' in stock_data:
         time_series = stock_data['Time Series (Daily)']
     elif 'Weekly Time Series' in stock_data:
@@ -22,17 +22,21 @@ def generate_graph(stock_symbol, stock_data, chart_type, begin_date, end_date):
     else:
         print("No valid time series found in the stock data.")
         return
-
+    print("******I got here NOW!!!!")
     # Filter data by date range
     for date_str, data in time_series.items():
+        print("hey######")
         date = datetime.strptime(date_str, '%Y-%m-%d')
-        if begin_date <= date <= end_date:
-            dates.append(date_str)
-            try:
+        print("gotem")
+        #if begin_date <= date <= end_date:
+        dates.append(date_str)
+        print(date_str)
+        try:
                 prices.append(float(data['1. open']))  # Change this to the price you want to plot
-            except KeyError:
+                print(prices)
+        except KeyError:
                 print(f"Missing '1. open' data for date: {date_str}")
-
+    print("******I got here!!!!")
     # Generate the graph
     if chart_type == "1":
         graph = pygal.Bar()
