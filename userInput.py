@@ -1,10 +1,11 @@
 from datetime import datetime
 from api_service import *
+from graph_generator import generate_graph
 import requests
 
 def get_stock_data_input():
     # Enclosed entire input collection in a try block to catch unexpected errors, retuns none and outpust an error message.
-    try:
+
         stock_symbol = input("Stock Data Visualizer Group 15 \n------------------------------------- \n\nEnter the stock symbol for the company you want data for: ").strip()
 
         while True:
@@ -39,36 +40,29 @@ def get_stock_data_input():
                 print("\nInvalid date format. Please enter the date in YYYY-MM-DD format.")
         
         return stock_symbol, chart_type, time_series_function, begin_date, end_date
-   
+'''
     # Enclosed entire input collection in a try block to catch unexpected errors, retuns none and outpust an error message.
     except Exception as e:
         print(f"An unexpected error occurred while getting stock data input: {e}")
         return None
-
+'''
 stock_symbol, chart_type, time_series_function, begin_date, end_date = get_stock_data_input()
 
-if all([stock_symbol, chart_type, time_series_function, begin_date, end_date]):
-    try:
-        # Convert time series and construct 
-        time_series_name = convert_time_series(time_series_function)
-        url = construct_url(BASE_URL, time_series_name, stock_symbol, INTERVAL, API_KEY)
-
-        # Get JSON data from API
+time_series_name = convert_time_series(time_series_function)
+url = construct_url(BASE_URL, time_series_name, stock_symbol, INTERVAL, API_KEY)
+try:
+         # Get JSON data from API
         response = requests.get(url)
         response.raise_for_status()  # Raises an HTTPError if the HTTP request in the case of an unsuccessful status code
         stock_data = response.json()
+        print(stock_data)
 
         # Check if the expected data structure is present
         if not stock_data or "Error Message" in stock_data:
             print("Error fetching stock data: please check the stock symbol and try again.")
         else:
-            print("Data successfully fetched.")
+            generate_graph(stock_symbol, stock_data, chart_type, begin_date, end_date)
             # Proceed with further processing of stock_data
 
-    except requests.exceptions.RequestException as e:
-        print(f"Network error occurred: {e}")
-    except Exception as e:
-        print(f"An unexpected error occurred while fetching stock data: {e}")
-
-else:
+except:
     print("Failed to gather necessary inputs. Please restart the program.")

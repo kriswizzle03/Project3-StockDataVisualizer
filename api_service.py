@@ -1,7 +1,8 @@
 
 #define base url and constants
 BASE_URL = "https://www.alphavantage.co/query?"
-API_KEY = "QEQT8WNAUX7DRILI"
+#API_KEY = "QEQT8WNAUX7DRILI"
+API_KEY = "JZF7E8T2H2WCEID3"
 #for intraday time series, set default interval to 5 mins
 INTERVAL = "5min"
 
