@@ -1,6 +1,6 @@
 import pygal
 from lxml import etree
-from datetime import datetime
+import datetime
 import webbrowser
 
 def generate_graph(stock_symbol, stock_data, chart_type, begin_date, end_date):
@@ -26,11 +26,11 @@ def generate_graph(stock_symbol, stock_data, chart_type, begin_date, end_date):
     # Filter data by date range
     for date_str, data in time_series.items():
         print("hey######")
-        date = datetime.strptime(date_str, '%Y-%m-%d')
+        
         print("gotem")
         #if begin_date <= date <= end_date:
-        dates.append(date_str)
-        print(date_str)
+        dates.append(datetime.strptime(date_str, '%Y-%m-%d'))
+        #print(date_str)
         try:
                 prices.append(float(data['1. open']))  # Change this to the price you want to plot
                 print(prices)
