@@ -28,4 +28,4 @@ Branch for creating the unique API url using parameters from the user's input an
 Branch for reading JSON data from the API url and rendering it via a bar graph or line graph on the user's browser. Note: this branch also employs error handling to ensure there are no unexpected program crashes.
 
 ## newbranch-graph-fix
-Branch for troubleshooting issues when rendering the graph on the user's browswer. Implemented checks and print statements to find bugs and find out where errors were occuring before code was cleaned.
+Branch for troubleshooting issues when rendering the graph on the user's browser. Implemented checks and print statements to find bugs and find out where errors were occuring before code was cleaned.
