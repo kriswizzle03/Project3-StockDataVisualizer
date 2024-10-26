@@ -1,5 +1,6 @@
 from datetime import datetime
 from api_service import *
+from graph_generator import generate_graph
 import requests
 
 def get_stock_data_input():
@@ -46,14 +47,13 @@ def get_stock_data_input():
         return None
 
 stock_symbol, chart_type, time_series_function, begin_date, end_date = get_stock_data_input()
-
 if all([stock_symbol, chart_type, time_series_function, begin_date, end_date]):
     try:
-        # Convert time series and construct 
+        #convert time series and construct specific API url based on user's response
         time_series_name = convert_time_series(time_series_function)
         url = construct_url(BASE_URL, time_series_name, stock_symbol, INTERVAL, API_KEY)
 
-        # Get JSON data from API
+         # Get JSON data from API
         response = requests.get(url)
         response.raise_for_status()  # Raises an HTTPError if the HTTP request in the case of an unsuccessful status code
         stock_data = response.json()
@@ -62,7 +62,7 @@ if all([stock_symbol, chart_type, time_series_function, begin_date, end_date]):
         if not stock_data or "Error Message" in stock_data:
             print("Error fetching stock data: please check the stock symbol and try again.")
         else:
-            print("Data successfully fetched.")
+            generate_graph(stock_symbol, stock_data, chart_type, begin_date, end_date)
             # Proceed with further processing of stock_data
 
     except requests.exceptions.RequestException as e:
